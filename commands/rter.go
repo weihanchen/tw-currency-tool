@@ -45,6 +45,7 @@ func (m *Mobile01Commander) rate() *cobra.Command {
 	var (
 		code     string
 		rateType string
+		sortable bool
 	)
 	cmd := &cobra.Command{
 		Use:   "rate",
@@ -52,11 +53,12 @@ func (m *Mobile01Commander) rate() *cobra.Command {
 		SuggestionsMinimumDistance: 1,
 		Run: func(ccmd *cobra.Command, args []string) {
 			spider := spider.NewRterSpider()
-			spider.PrintRate(rateType, code)
+			spider.PrintRate(rateType, code, sortable)
 		},
 	}
 	cmd.Flags().StringVarP(&code, "code", "c", "USD", "currency code, search by: tw-currency-tool rter code")
 	cmd.Flags().StringVarP(&rateType, "type", "t", "check", "現金匯率(cach)、即期匯率(check)")
+	cmd.Flags().BoolVarP(&sortable, "sortable", "s", false, "auto sort")
 	cmd.MarkFlagRequired("code")
 	return cmd
 }

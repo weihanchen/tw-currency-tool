@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"os"
 	"regexp"
+	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -109,8 +111,14 @@ func (r *RterSpider) getRates(rateType string, code string) []CurrencyRate {
 	}
 	for _, data := range rateBody.Data {
 		bank := r.bankReg.ReplaceAllString(data[0], "")
-		in := data[1]
-		out := data[2]
+		in, err := strconv.ParseFloat(data[1], 64)
+		if err != nil {
+			break
+		}
+		out, err := strconv.ParseFloat(data[2], 64)
+		if err != nil {
+			break
+		}
 		updateTime := data[3]
 		rates = append(rates, CurrencyRate{
 			Bank:       bank,
@@ -165,12 +173,23 @@ func (r *RterSpider) PrintNews() {
 	table.Render()
 }
 
-func (r *RterSpider) PrintRate(rateType string, code string) {
+type RateSorter []CurrencyRate
+
+func (rate RateSorter) Len() int           { return len(rate) }
+func (rate RateSorter) Swap(i, j int)      { rate[i], rate[j] = rate[j], rate[i] }
+func (rate RateSorter) Less(i, j int) bool { return rate[i].Out < rate[j].Out }
+
+func (r *RterSpider) PrintRate(rateType string, code string, sortable bool) {
 	rates := r.getRates(rateType, code)
 	header := []string{"銀行", "買進", "賣出", "更新日期"}
 	var data [][]string
-	for _, r := range rates {
-		data = append(data, []string{r.Bank, r.In, r.Out, r.UpdateTime})
+	if sortable {
+		sort.Sort(RateSorter(rates))
+	}
+	for _, rate := range rates {
+		in := strconv.FormatFloat(rate.In, 'f', 6, 64)
+		out := strconv.FormatFloat(rate.Out, 'f', 6, 64)
+		data = append(data, []string{rate.Bank, in, out, rate.UpdateTime})
 	}
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetRowLine(true)

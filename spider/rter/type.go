@@ -9,8 +9,8 @@ type CurrencyCode struct {
 
 type CurrencyRate struct {
 	Bank       string
-	In         string
-	Out        string
+	In         float64
+	Out        float64
 	UpdateTime string
 }
 
