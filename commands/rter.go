@@ -17,12 +17,13 @@ func (m *Mobile01Commander) basic() *cobra.Command {
 	}
 }
 
-func (m *Mobile01Commander) countries() *cobra.Command {
+func (m *Mobile01Commander) code() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "countries",
-		Short: "國家",
+		Use:   "code",
+		Short: "查詢貨幣代碼",
 		Run: func(ccmd *cobra.Command, args []string) {
-
+			spider := spider.NewRterSpider()
+			spider.PrintCodes()
 		},
 	}
 	return cmd
@@ -33,32 +34,37 @@ func (m *Mobile01Commander) news() *cobra.Command {
 		Use:   "news",
 		Short: "相關新聞",
 		Run: func(ccmd *cobra.Command, args []string) {
-
+			spider := spider.NewRterSpider()
+			spider.PrintNews()
 		},
 	}
 	return cmd
 }
 
 func (m *Mobile01Commander) rate() *cobra.Command {
-	var boardID string
+	var (
+		code     string
+		rateType string
+	)
 	cmd := &cobra.Command{
 		Use:   "rate",
 		Short: "匯率資訊",
 		SuggestionsMinimumDistance: 1,
 		Run: func(ccmd *cobra.Command, args []string) {
 			spider := spider.NewRterSpider()
-			spider.Start()
+			spider.PrintRate(rateType, code)
 		},
 	}
-	cmd.Flags().StringVarP(&boardID, "board_id", "b", "291", "mobile01 board id")
-	cmd.MarkFlagRequired("board_id")
+	cmd.Flags().StringVarP(&code, "code", "c", "USD", "currency code, search by: tw-currency-tool rter code")
+	cmd.Flags().StringVarP(&rateType, "type", "t", "check", "現金匯率(cach)、即期匯率(check)")
+	cmd.MarkFlagRequired("code")
 	return cmd
 }
 
 func newRterCommand() *cobra.Command {
 	commander := &Mobile01Commander{}
 	cmd := newCommandsBuilder(commander.basic()).
-		addCommand(commander.countries()).
+		addCommand(commander.code()).
 		addCommand(commander.news()).
 		addCommand(commander.rate()).
 		build()

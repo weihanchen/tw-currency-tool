@@ -6,12 +6,11 @@
 
 ```shell
 $ tw-currency-tool rter -h
-即匯站
-
 Usage:
   tw-curremcy-tool rter [command]
 
 Available Commands:
+  code        查詢貨幣代碼
   news        相關新聞
   rate        匯率資訊
 
@@ -32,6 +31,7 @@ Use "tw-curremcy-tool rter [command] --help" for more information about a comman
 ```
 
 ## Feature: 
+* 貨幣代碼查詢
 * 即時匯率查詢
 * 新聞抓取
 * 台灣各大銀行匯率
