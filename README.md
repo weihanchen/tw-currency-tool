@@ -9,7 +9,7 @@ $ tw-currency-tool --help
 ```
 
 ## Documents
-* [即匯站](./docs/rter.md)
+* [rter](./docs/rter.md)
 
 ### Update vendor directory using [govendor](https://github.com/kardianos/govendor)
 

@@ -1,6 +1,5 @@
 即匯站
 ===
-入口: [https://tw.rter.info/index.php](https://tw.rter.info/index.php)
 
 ## Usage
 
