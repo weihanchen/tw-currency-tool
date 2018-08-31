@@ -1,6 +1,6 @@
 tw-currency-tool
 ===
-以golang開發的貨幣輔助查詢工具cli(command line interface)
+匯率輔助查詢工具cli(command line interface)
 
 ## How to run
 
