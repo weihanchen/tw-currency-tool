@@ -13,8 +13,8 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/olekukonko/tablewriter"
-	"gitlab.com/will.chen/tw-currency-tool/httpRequest"
-	"gitlab.com/will.chen/tw-currency-tool/util"
+	"github.com/weihanchen/tw-currency-tool/httpRequest"
+	"github.com/weihanchen/tw-currency-tool/util"
 )
 
 type RterSpider struct {

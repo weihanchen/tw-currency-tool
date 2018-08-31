@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"gitlab.com/will.chen/tw-currency-tool/commands"
+	"github.com/weihanchen/tw-currency-tool/commands"
 )
 
 func main() {

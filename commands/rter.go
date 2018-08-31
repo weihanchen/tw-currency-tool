@@ -2,7 +2,7 @@ package commands
 
 import (
 	"github.com/spf13/cobra"
-	"gitlab.com/will.chen/tw-currency-tool/spider"
+	"github.com/weihanchen/tw-currency-tool/spider"
 )
 
 type Mobile01Commander struct {
