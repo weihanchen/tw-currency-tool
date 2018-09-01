@@ -1,6 +1,7 @@
 tw-currency-tool
 ===
-匯率輔助查詢工具cli(command line interface)
+
+command line interface
 
 ## How to run
 
